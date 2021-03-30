@@ -14,12 +14,12 @@ class _AudioServiceWidgetState extends State<ControlWidget>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    connect();
+    _connect();
   }
 
   @override
   void dispose() {
-    desconnect();
+    _desconnect();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -28,10 +28,10 @@ class _AudioServiceWidgetState extends State<ControlWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        connect();
+        _connect();
         break;
       case AppLifecycleState.paused:
-        desconnect();
+        _desconnect();
         break;
       default:
         break;
@@ -40,23 +40,23 @@ class _AudioServiceWidgetState extends State<ControlWidget>
 
   @override
   Future<bool> didPopRoute() async {
-    desconnect();
+    _desconnect();
     return false;
   }
 
-  void connect() {
+  _connect() {
     setState(() {
       Conexao.conectar();
     });
   }
 
-  void desconnect() {
+  _desconnect() {
     setState(() {
       Conexao.dc();
     });
   }
 
-  void alterarTeclado(int i) {
+  _alterarTeclado(int i) {
     setState(() {
       Global.tab = i;
     });
@@ -68,7 +68,7 @@ class _AudioServiceWidgetState extends State<ControlWidget>
         type: BottomNavigationBarType.fixed,
         currentIndex: Global.tab,
         onTap: (int index) {
-          alterarTeclado(index);
+          _alterarTeclado(index);
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.perm_media), label: 'Media'),
@@ -86,11 +86,11 @@ class _AudioServiceWidgetState extends State<ControlWidget>
             return [
               PopupMenuItem(
                 child: TextButton(
-                    onPressed: () => connect(), child: Text("Conectar")),
+                    onPressed: () => _connect(), child: Text("Conectar")),
               ),
               PopupMenuItem(
                 child: TextButton(
-                    onPressed: () => desconnect(), child: Text("Desconectar")),
+                    onPressed: () => _desconnect(), child: Text("Desconectar")),
               )
             ];
           })
@@ -99,7 +99,7 @@ class _AudioServiceWidgetState extends State<ControlWidget>
       body: Container(
         color: Colors.grey[100],
         child: MainContent(
-          callback: alterarTeclado,
+          callback: _alterarTeclado,
         ),
       ),
       bottomNavigationBar: bottomNavBar,

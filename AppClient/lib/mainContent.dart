@@ -15,21 +15,12 @@ class MainContent extends StatefulWidget {
 }
 
 class _MainContentState extends State<MainContent> {
-  //StreamSubscription<HardwareButtons.VolumeButtonEvent>
-  //    _volumeButtonSubscription;
-
-  double delta = 0;
-  int x1 = 0;
-  int y1 = 0;
-  int x2 = 0;
-  int y2 = 0;
-  double width;
-  double height;
+  int _x1 = 0, _y1 = 0, _x2 = 0, _y2 = 0;
+  double _width, _height;
 
   @override
   void initState() {
     super.initState();
-    //_volumeButtonSubscription =
     HardwareButtons.volumeButtonEvents.listen((event) {
       if (event.index == 0)
         Conexao.sendCommand("volUp");
@@ -40,24 +31,24 @@ class _MainContentState extends State<MainContent> {
 
   /// Track current point of a gesture
   void _onDragUpdateHandler(DragUpdateDetails details) {
-    delta = details.primaryDelta;
+    double delta = details.primaryDelta;
     if (delta < 0) delta = delta * -1;
     if (details.globalPosition.dx.floor() % 1 == 0 ||
         details.globalPosition.dy.floor() % 1 == 0) {
-      x2 = details.globalPosition.dx.floor();
-      y2 = details.globalPosition.dy.floor();
-      if (x1 != x2 && y1 != y2) {
-        Conexao.move(((x1 - x2) * (delta * (delta + 1))).floor(),
-            ((y1 - y2) * (delta * delta + 1)).floor());
-        x1 = details.globalPosition.dx.floor();
-        y1 = details.globalPosition.dy.floor();
+      _x2 = details.globalPosition.dx.floor();
+      _y2 = details.globalPosition.dy.floor();
+      if (_x1 != _x2 && _y1 != _y2) {
+        Conexao.move(((_x1 - _x2) * (delta + 1)).floor(),
+            ((_y1 - _y2) * (delta + 1)).floor());
+        _x1 = details.globalPosition.dx.floor();
+        _y1 = details.globalPosition.dy.floor();
       }
     }
   }
 
   void _onpanStartHandler(DragStartDetails details) {
-    x1 = details.globalPosition.dx.floor();
-    y1 = details.globalPosition.dy.floor();
+    _x1 = details.globalPosition.dx.floor();
+    _y1 = details.globalPosition.dy.floor();
   }
 
   void _onTap() => Conexao.sendCommand("leftclick");
@@ -70,11 +61,11 @@ class _MainContentState extends State<MainContent> {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
+    _width = Global.getWidth(context);
+    _height = Global.getHeight(context);
     return Column(children: [
-      mousePainel(height),
-      buttonMouse(width),
+      mousePainel(_height),
+      buttonMouse(_width),
       selecTab(),
     ]);
   }
@@ -185,7 +176,7 @@ class _MainContentState extends State<MainContent> {
     return Padding(
       padding: EdgeInsets.only(left: 1, right: 1),
       child: Container(
-        width: width / 6 - 2,
+        width: _width / 6 - 2,
         child: OutlineButton(
           onPressed: () => sendKey(letra),
           child: Text(
@@ -201,7 +192,7 @@ class _MainContentState extends State<MainContent> {
     return Padding(
       padding: EdgeInsets.only(left: 1, right: 1),
       child: Container(
-        width: width / 10 - 2,
+        width: _width / 10 - 2,
         child: OutlineButton(
           onPressed: () => sendKey(letra),
           child: Text(letra),

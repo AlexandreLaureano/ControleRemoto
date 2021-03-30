@@ -1,7 +1,6 @@
 import 'package:clientMouse/global.dart';
 import 'package:flutter/material.dart';
 import 'ControlWidget.dart';
-import 'mainContent.dart';
 
 import 'package:ping_discover_network/ping_discover_network.dart';
 import 'package:wifi/wifi.dart';
@@ -12,14 +11,14 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  List<String> lista = new List<String>();
+  List<String> _lista = <String>[];
   String _error = "";
 
   int _itemCount = 0;
 
   @override
   void initState() {
-    searchDevices();
+    _searchDevices();
     super.initState();
   }
 
@@ -30,43 +29,42 @@ class _StartPageState extends State<StartPage> {
         child: Column(
           children: [
             Expanded(
-              child: SizedBox(
-                  height: 200.0,
-                  child: (lista.isEmpty)
-                      ? buscando()
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 50,
-                            ),
-                            Text("Dispostivos Encontrados"),
-                            Container(
-                              child: Expanded(
-                                  child: ListView.separated(
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              Divider(),
-                                      itemCount: _itemCount,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return ListTile(
-                                          title: Text(lista[index]),
-                                          onTap: () => pressItem(lista[index]),
-                                        );
-                                      })),
-                            ),
-                          ],
-                        )),
-            ),
+                child: SizedBox(
+                    height: 200.0,
+                    child: (_lista.isEmpty) ? _buscando() : _encontrado())),
           ],
         ),
       ),
     );
   }
 
-  Widget buscando() {
+  Widget _encontrado() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 50,
+        ),
+        Text("Dispostivos Encontrados"),
+        Container(
+          child: Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Divider(),
+                  itemCount: _itemCount,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(_lista[index]),
+                      onTap: () => _pressItem(_lista[index]),
+                    );
+                  })),
+        ),
+      ],
+    );
+  }
+
+  Widget _buscando() {
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,34 +77,32 @@ class _StartPageState extends State<StartPage> {
           height: 50,
         ),
         OutlineButton(
-            onPressed: () => searchDevices(), child: Text("Atualizar")),
+            onPressed: () => _searchDevices, child: Text("Atualizar")),
       ],
     ));
   }
 
-  Widget encontrado() {}
-
-  void pressItem(String item) {
+  _pressItem(String item) {
     Global.ip = item;
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => ControlWidget()));
   }
 
-  void searchDevices() async {
+  _searchDevices() async {
     String ip;
     try {
       ip = await Wifi.ip;
       String subnet = ip.substring(0, ip.lastIndexOf('.'));
       int port = 11111;
 
+      //Alterar método dicover2, incluindo socket.write("done");
       final stream = NetworkAnalyzer.discover2(subnet, port);
       stream.listen((NetworkAddress addr) {
         if (addr.exists) {
           setState(() {
-            lista.add(addr.ip);
+            _lista.add(addr.ip);
             _itemCount++;
           });
-          print('Found device: ${addr.ip}');
         }
       }).onDone(() => print("finished"));
     } catch (ex) {

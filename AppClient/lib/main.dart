@@ -8,13 +8,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final title = 'WebSocket Demo';
+    final _title = 'WebSocket Demo';
 
     return MaterialApp(
-      title: title,
+      title: _title,
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
+      debugShowCheckedModeBanner: false,
       home: StartPage(),
     );
   }
