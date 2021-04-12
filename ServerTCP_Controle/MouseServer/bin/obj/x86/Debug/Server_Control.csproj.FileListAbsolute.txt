@@ -1,0 +1,2 @@
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\bin\obj\x86\Debug\Server_Control.csprojAssemblyReference.cache
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\bin\obj\x86\Debug\Server_Control.csproj.CoreCompileInputs.cache

@@ -17,7 +17,7 @@ class MainContent extends StatefulWidget {
 class _MainContentState extends State<MainContent> {
   int _x1 = 0, _y1 = 0, _x2 = 0, _y2 = 0;
   double _width, _height;
-
+  bool sending = false;
   @override
   void initState() {
     super.initState();
@@ -31,18 +31,20 @@ class _MainContentState extends State<MainContent> {
 
   /// Track current point of a gesture
   void _onDragUpdateHandler(DragUpdateDetails details) {
-    double delta = details.primaryDelta;
-    if (delta < 0) delta = delta * -1;
-    if (details.globalPosition.dx.floor() % 1 == 0 ||
-        details.globalPosition.dy.floor() % 1 == 0) {
-      _x2 = details.globalPosition.dx.floor();
-      _y2 = details.globalPosition.dy.floor();
-      if (_x1 != _x2 && _y1 != _y2) {
-        Conexao.move(((_x1 - _x2) * (delta + 1)).floor(),
-            ((_y1 - _y2) * (delta + 1)).floor());
+    if (!sending) {
+      sending = true;
+      Future.delayed(new Duration(milliseconds: 1), () {
+        double delta = details.primaryDelta;
+        if (delta < 0) delta = delta * -1;
+        _x2 = details.globalPosition.dx.floor();
+        _y2 = details.globalPosition.dy.floor();
+        Conexao.move(((_x1 - _x2) * (delta * (delta / 2) + 1)).floor(),
+            ((_y1 - _y2) * (delta * (delta / 2) + 1)).floor());
+
         _x1 = details.globalPosition.dx.floor();
         _y1 = details.globalPosition.dy.floor();
-      }
+        sending = false;
+      });
     }
   }
 
@@ -151,7 +153,7 @@ class _MainContentState extends State<MainContent> {
             tecla("j"),
             tecla("k"),
             tecla("l"),
-            tecla("ç")
+            // tecla("ç")
           ],
         ),
         Row(
@@ -201,7 +203,9 @@ class _MainContentState extends State<MainContent> {
     );
   }
 
-  void sendKey(String key) {}
+  void sendKey(String key) {
+    Conexao.sendCommand(key);
+  }
 
   Widget tecladoMidia() {
     return Row(

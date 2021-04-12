@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server_Control", "Server_Control.csproj", "{EC168CD8-CB0E-45F5-8633-18DBD5E5917D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC168CD8-CB0E-45F5-8633-18DBD5E5917D}.Debug|x86.ActiveCfg = Debug|x86
+		{EC168CD8-CB0E-45F5-8633-18DBD5E5917D}.Debug|x86.Build.0 = Debug|x86
+		{EC168CD8-CB0E-45F5-8633-18DBD5E5917D}.Release|x86.ActiveCfg = Release|x86
+		{EC168CD8-CB0E-45F5-8633-18DBD5E5917D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60C567DF-2580-44C5-B0F2-E8FA9908F715}
+	EndGlobalSection
+EndGlobal

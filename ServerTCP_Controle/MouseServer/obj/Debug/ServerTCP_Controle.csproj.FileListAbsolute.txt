@@ -1,0 +1,10 @@
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\bin\Debug\MouseServer.exe.config
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\bin\Debug\MouseServer.exe
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\bin\Debug\MouseServer.pdb
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\ServerTCP_Controle.csprojAssemblyReference.cache
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\MouseServer.Form1.resources
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\MouseServer.Properties.Resources.resources
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\ServerTCP_Controle.csproj.GenerateResource.cache
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\ServerTCP_Controle.csproj.CoreCompileInputs.cache
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\MouseServer.exe
+D:\projeto\ControleRemoto\ServerTCP_Controle\ServerTCP_Controle\obj\Debug\MouseServer.pdb
